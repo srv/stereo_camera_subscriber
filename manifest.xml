@@ -1,0 +1,23 @@
+<package>
+  <description brief="stereo_camera_subscriber">
+
+     stereo_camera_subscriber, 
+     an extension and partial copy 
+     of the ros camera_subscriber
+
+  </description>
+  <author>volker</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/stereo_camera_subscriber</url>
+  <depend package="sensor_msgs"/>
+  <depend package="image_geometry"/>
+  <depend package="image_transport"/>
+
+  <export>
+    <cpp cflags="-I${prefix}/include" lflags="-Wl, -rpath, -L${prefix}/lib -lstereo_camera_subscriber" />
+  </export>
+
+</package>
+
+
