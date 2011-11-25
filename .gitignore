@@ -24,3 +24,5 @@ cmake_install.cmake
 # emacs temporary files
 *~
 
+#xcode configuration
+*.xcodeproj
