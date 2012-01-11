@@ -26,3 +26,5 @@ cmake_install.cmake
 
 #xcode configuration
 *.xcodeproj
+
+tmp
