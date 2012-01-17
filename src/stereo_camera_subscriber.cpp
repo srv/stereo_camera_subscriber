@@ -66,8 +66,8 @@ struct StereoCameraSubscriber::Impl {
       ROS_WARN( "[image_transport] Topics '%s', '%s', '%s' and '%s' "
                 "do not appear to be synchronized. "
                 "In the last 10s:\n"
-                "\tleft Image messages received:       %d\n"
-                "\tleft CameraInfo messages received:  %d\n"
+                "\tleft  Image messages received:      %d\n"
+                "\tleft  CameraInfo messages received: %d\n"
                 "\tright Image messages received:      %d\n"
                 "\tright CameraInfo messages received: %d\n"
                 "\tSynchronized couples:               %d",
@@ -157,8 +157,7 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
                              impl_->image_sub_right_,
                              impl_->info_sub_right_ );
   // need for Boost.Bind here is kind of broken
-  //  impl_->sync_.registerCallback( boost::bind( callback, _1, _2, _3, _4 ) );
-    impl_->sync_.registerCallback( callback );
+  impl_->sync_.registerCallback( boost::bind( callback, _1, _2, _3, _4 ) );
 
   // Complain every 10s if it appears that the image and info topics 
   // are not synchronized
