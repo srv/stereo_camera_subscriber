@@ -126,8 +126,8 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
                         const image_transport::TransportHints &
                         transport_hints )
   : impl_( new Impl( queue_size ) ) {
-  // Must explicitly remap the image topic since we then do some string manipulation on it
-  // to figure out the sibling camera_info topic.
+  // Must explicitly remap the image topic since we then do some string 
+  // manipulation on it to figure out the sibling camera_info topic.
   std::string image_topic_left =
     info_nh.resolveName( base_topic_left );
   std::string info_topic_left =
@@ -157,9 +157,11 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
                              impl_->image_sub_right_,
                              impl_->info_sub_right_ );
   // need for Boost.Bind here is kind of broken
-  impl_->sync_.registerCallback( boost::bind( callback, _1, _2, _3, _4 ) );
+  //  impl_->sync_.registerCallback( boost::bind( callback, _1, _2, _3, _4 ) );
+    impl_->sync_.registerCallback( callback );
 
-  // Complain every 10s if it appears that the image and info topics are not synchronized
+  // Complain every 10s if it appears that the image and info topics 
+  // are not synchronized
   impl_->image_sub_left_.
   registerCallback( boost::bind( increment, &impl_->image_received_left_ ) );
   impl_->info_sub_left_.
