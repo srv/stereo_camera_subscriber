@@ -24,7 +24,9 @@ public:
   typedef boost::function<void ( const sensor_msgs::ImageConstPtr &,
                                  const sensor_msgs::CameraInfoConstPtr &,
                                  const sensor_msgs::ImageConstPtr &,
-                                 const sensor_msgs::CameraInfoConstPtr & )>
+                                const sensor_msgs::CameraInfoConstPtr &,
+                                const void *, const void *, const void *, 
+                                const void *, const void * )>
   Callback;
 
   StereoCameraSubscriber() {}
