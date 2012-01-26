@@ -12,7 +12,7 @@
 
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
-#include "image_transport/transport_hints.h"
+#include <image_transport/transport_hints.h>
 #include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/Image.h>
 
