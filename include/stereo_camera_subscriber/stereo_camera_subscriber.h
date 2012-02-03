@@ -121,6 +121,8 @@ public:
   std::string getLeftTransport() const;
 
   std::string getRightTransport() const;
+  
+  bool debug( bool on );
 
   void shutdown();
 

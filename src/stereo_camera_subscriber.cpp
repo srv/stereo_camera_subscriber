@@ -26,6 +26,13 @@ namespace stereo_camera_subscriber {
 void increment( int * value ) {
   ++( *value );
 }
+  
+void report( std_msgs::Header header ) {
+  std::cout
+  << "Seq:     " << header.seq << std::endl 
+  << "Stamp:   " << header.stamp << std::endl 
+  << "FrameID: " << header.frame_id << std::endl;
+}    
 
 struct StereoCameraSubscriber::Impl {
 
@@ -36,7 +43,8 @@ struct StereoCameraSubscriber::Impl {
     info_received_left_( 0 ),
     image_received_right_( 0 ),
     info_received_right_( 0 ),
-    all_received_( 0 )
+    all_received_( 0 ),
+    debug_( false )
   {}
 
   ~Impl() {
@@ -59,10 +67,11 @@ struct StereoCameraSubscriber::Impl {
 
   void checkImagesSynchronized() {
     int threshold = 3 * all_received_;
-    if ( image_received_left_ > threshold or
-         info_received_left_ > threshold or
-         image_received_right_ > threshold or
-         info_received_right_ > threshold ) {
+    if ( debug_ or 
+         ( image_received_left_ > threshold or
+           info_received_left_ > threshold or
+           image_received_right_ > threshold or
+           info_received_right_ > threshold ) ) {
       ROS_WARN( "[image_transport] Topics '%s', '%s', '%s' and '%s' "
                 "do not appear to be synchronized. "
                 "In the last 10s:\n"
@@ -113,6 +122,7 @@ struct StereoCameraSubscriber::Impl {
   int image_received_right_;
   int info_received_right_;
   int all_received_;
+  bool debug_;
 };
 
 StereoCameraSubscriber::
@@ -161,6 +171,15 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
 
   // Complain every 10s if it appears that the image and info topics 
   // are not synchronized
+  impl_->image_sub_left_.
+  registerCallback( boost::bind( report, &impl_->image_received_left_->header ) );
+    impl_->info_sub_left_.
+    registerCallback( boost::bind( report, &impl_->info_received_left_->header ) );
+    impl_->image_sub_right_.
+    registerCallback( boost::bind( report, &impl_->image_received_right_->header ) );
+    impl_->info_sub_right_.
+  registerCallback( boost::bind( report, &impl_->info_received_right_->header ) );
+    
   impl_->image_sub_left_.
   registerCallback( boost::bind( increment, &impl_->image_received_left_ ) );
   impl_->info_sub_left_.
@@ -229,4 +248,8 @@ StereoCameraSubscriber::operator void *() const {
   return ( impl_ && impl_->isValid() ) ? (void *)1 : (void *)0;
 }
 
+bool StereoCameraSubscriber::debug( bool on ) {
+  return ( impl_->debug_ = on );  
+}
+  
 } //namespace image_transport
