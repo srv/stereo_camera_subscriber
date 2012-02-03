@@ -27,11 +27,11 @@ void increment( int * value ) {
   ++( *value );
 }
   
-void report( std_msgs::Header header ) {
+void report( const boost::shared_ptr<const sensor_msgs::Image>& image ) {
   std::cout
-  << "Seq:     " << header.seq << std::endl 
-  << "Stamp:   " << header.stamp << std::endl 
-  << "FrameID: " << header.frame_id << std::endl;
+  << "Seq:     " << image->header.seq << std::endl 
+  << "Stamp:   " << image->header.stamp << std::endl 
+  << "FrameID: " << image->header.frame_id << std::endl;
 }    
 
 struct StereoCameraSubscriber::Impl {
@@ -172,13 +172,13 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
   // Complain every 10s if it appears that the image and info topics 
   // are not synchronized
   impl_->image_sub_left_.
-  registerCallback( boost::bind( report, &impl_->image_received_left_.header ) );
-    impl_->info_sub_left_.
-    registerCallback( boost::bind( report, &impl_->info_received_left_.header ) );
-    impl_->image_sub_right_.
-    registerCallback( boost::bind( report, &impl_->image_received_right_.header ) );
-    impl_->info_sub_right_.
-  registerCallback( boost::bind( report, &impl_->info_received_right_.header ) );
+  registerCallback( boost::bind( report ) );
+//  impl_->info_sub_left_.
+//  registerCallback( boost::bind( report ) );
+  impl_->image_sub_right_.
+  registerCallback( boost::bind( report ) );
+//  impl_->info_sub_right_.
+//  registerCallback( boost::bind( report ) );
     
   impl_->image_sub_left_.
   registerCallback( boost::bind( increment, &impl_->image_received_left_ ) );
