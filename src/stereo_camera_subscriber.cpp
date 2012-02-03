@@ -27,7 +27,7 @@ void increment( int * value ) {
   ++( *value );
 }
   
-void report( const sensor_msgs::Image & image ) {
+void report( const boost::shared_ptr<const sensor_msgs::Image>& image ) {
   std::cout
   << "Seq:     " << image->header.seq << std::endl 
   << "Stamp:   " << image->header.stamp << std::endl 
