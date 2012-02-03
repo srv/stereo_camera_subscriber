@@ -172,13 +172,13 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
   // Complain every 10s if it appears that the image and info topics 
   // are not synchronized
   impl_->image_sub_left_.
-  registerCallback( boost::bind( report, &impl_->image_received_left_->header ) );
+  registerCallback( boost::bind( report, &impl_->image_received_left_.header ) );
     impl_->info_sub_left_.
-    registerCallback( boost::bind( report, &impl_->info_received_left_->header ) );
+    registerCallback( boost::bind( report, &impl_->info_received_left_.header ) );
     impl_->image_sub_right_.
-    registerCallback( boost::bind( report, &impl_->image_received_right_->header ) );
+    registerCallback( boost::bind( report, &impl_->image_received_right_.header ) );
     impl_->info_sub_right_.
-  registerCallback( boost::bind( report, &impl_->info_received_right_->header ) );
+  registerCallback( boost::bind( report, &impl_->info_received_right_.header ) );
     
   impl_->image_sub_left_.
   registerCallback( boost::bind( increment, &impl_->image_received_left_ ) );
