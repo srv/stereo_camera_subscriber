@@ -27,7 +27,7 @@ void increment( int * value ) {
   ++( *value );
 }
   
-void report( const boost::shared_ptr<const sensor_msgs::Image>& image ) {
+void stereo_report( const boost::shared_ptr<const sensor_msgs::Image>& image ) {
   std::cout << "Image" << std::endl
   << "    Seq:     " << image->header.seq << std::endl 
   << "    Stamp:   " << image->header.stamp << std::endl 
@@ -171,10 +171,10 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
 
   // Complain every 10s if it appears that the image and info topics 
   // are not synchronized
-  impl_->image_sub_left_.registerCallback( boost::bind( report, _1 ) );
+  impl_->image_sub_left_.registerCallback( boost::bind( stereo_report, _1 ) );
 //  impl_->info_sub_left_.
 //  registerCallback( boost::bind( report ) );
-  impl_->image_sub_right_.registerCallback( boost::bind( report, _1 ) );
+  impl_->image_sub_right_.registerCallback( boost::bind( stereo_report, _1 ) );
 //  impl_->info_sub_right_.
 //  registerCallback( boost::bind( report ) );
     
