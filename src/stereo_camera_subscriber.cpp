@@ -24,15 +24,15 @@
 namespace stereo_camera_subscriber {
 
 void increment( int * value ) {
-  std::cout << "incrementing\n";
   ++( *value );
 }
   
 void stereo_report( const boost::shared_ptr<const sensor_msgs::Image>& image ) {
-  std::cout << "Image" << std::endl
-  << "    Seq:     " << image->header.seq << std::endl 
-  << "    Stamp:   " << image->header.stamp << std::endl 
-  << "    FrameID: " << image->header.frame_id << std::endl;
+  char c[100];
+  sprintf(c, "Image Seq: %6d, ", image->header.seq);
+  std::cout << c 
+  << " Stamp:   " << image->header.stamp 
+  << " FrameID: " << image->header.frame_id << std::endl;
 }    
 
 struct StereoCameraSubscriber::Impl {
