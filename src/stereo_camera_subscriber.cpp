@@ -27,13 +27,23 @@ void increment( int * value ) {
   ++( *value );
 }
   
-void stereo_report( const boost::shared_ptr<const sensor_msgs::Image>& image ) {
+void image_report( const boost::shared_ptr<const sensor_msgs::Image>& image,
+                    const std::string & side ) {
   char c[100];
-  sprintf(c, "Image Seq: %6d, ", image->header.seq);
-  std::cout << c 
+  sprintf(c, " Image Seq: %6d, ", image->header.seq);
+  std::cout << side << c 
   << " Stamp:   " << image->header.stamp 
   << " FrameID: " << image->header.frame_id << std::endl;
 }    
+  
+void info_report( const boost::shared_ptr<const sensor_msgs::CameraInfo>& info,
+                    const std::string & side ) {
+    char c[100];
+    sprintf(c, " Info  Seq: %6d, ", info->header.seq);
+    std::cout << side << c 
+    << " Stamp:   " << info->header.stamp 
+    << " FrameID: " << info->header.frame_id << std::endl;
+  }    
 
 struct StereoCameraSubscriber::Impl {
 
@@ -172,12 +182,14 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
 
   // Complain every 10s if it appears that the image and info topics 
   // are not synchronized
-  impl_->image_sub_left_.registerCallback( boost::bind( stereo_report, _1 ) );
-//  impl_->info_sub_left_.
-//  registerCallback( boost::bind( report ) );
-  impl_->image_sub_right_.registerCallback( boost::bind( stereo_report, _1 ) );
-//  impl_->info_sub_right_.
-//  registerCallback( boost::bind( report ) );
+  impl_->image_sub_left_.registerCallback( boost::bind( image_report, _1, 
+                                                        "left " ) );
+  impl_->info_sub_left_.registerCallback( boost::bind( info_report, _1, 
+                                                       "left " ) );
+  impl_->image_sub_right_.registerCallback( boost::bind( image_report, _1, 
+                                                         "right" ) );
+  impl_->info_sub_right_.registerCallback( boost::bind( info_report, _1, 
+                                                        "right" ) );
     
   impl_->image_sub_left_.
   registerCallback( boost::bind( increment, &impl_->image_received_left_ ) );
