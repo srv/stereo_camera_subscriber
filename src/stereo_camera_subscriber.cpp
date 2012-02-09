@@ -27,23 +27,22 @@ void increment( int * value ) {
   ++( *value );
 }
   
-void image_report( const boost::shared_ptr<const sensor_msgs::Image>& image,
-                    const std::string & side ) {
-  char c[100];
-  sprintf(c, " Image Seq: %6d, ", image->header.seq);
-  std::cout << side << c 
-  << " Stamp:   " << image->header.stamp 
-  << " FrameID: " << image->header.frame_id << std::endl;
+void report_image( const boost::shared_ptr<const sensor_msgs::Image>& image,
+                   const std::string & side ) {
+  char c[1000];
+  sprintf(c, " Image Seq: %6d, Stamp: %s, FrameID: %s", 
+          image->header.seq, image->header.stamp, image->header.frame_id);
+  std::cout << side << c << std::endl;
 }    
   
-void info_report( const boost::shared_ptr<const sensor_msgs::CameraInfo>& info,
-                    const std::string & side ) {
-    char c[100];
+void report_info( const boost::shared_ptr<const sensor_msgs::CameraInfo>& info,
+                  const std::string & side ) {
+  char c[1000];
+  sprintf(c, " Info  Seq: %6d, Stamp: %s, FrameID: %s", 
+          info->header.seq, info->header.stamp, info->header.frame_id);
     sprintf(c, " Info  Seq: %6d, ", info->header.seq);
-    std::cout << side << c 
-    << " Stamp:   " << info->header.stamp 
-    << " FrameID: " << info->header.frame_id << std::endl;
-  }    
+  std::cout << side << c << std::endl;
+}    
 
 struct StereoCameraSubscriber::Impl {
 
@@ -182,13 +181,13 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
 
   // Complain every 10s if it appears that the image and info topics 
   // are not synchronized
-//  impl_->image_sub_left_.registerCallback( boost::bind( image_report, _1, 
+//  impl_->image_sub_left_.registerCallback( boost::bind( report_image, _1, 
 //                                                        "left " ) );
-//  impl_->info_sub_left_.registerCallback( boost::bind( info_report, _1, 
+//  impl_->info_sub_left_.registerCallback( boost::bind( report_info, _1, 
 //                                                       "left " ) );
-//  impl_->image_sub_right_.registerCallback( boost::bind( image_report, _1, 
+//  impl_->image_sub_right_.registerCallback( boost::bind( report_image, _1, 
 //                                                         "right" ) );
-//  impl_->info_sub_right_.registerCallback( boost::bind( info_report, _1, 
+//  impl_->info_sub_right_.registerCallback( boost::bind( report_info, _1, 
 //                                                        "right" ) );
     
   impl_->image_sub_left_.
