@@ -77,10 +77,10 @@ struct StereoCameraSubscriber::Impl {
   }
 
   void checkImagesSynchronized() {
-    if ( all_received != image_received_left or
-         all_received != info_received_left or
-         all_received != image_received_right or
-         all_received != info_received_right ) {
+    if ( all_received_ != image_received_left or
+         all_received_ != info_received_left or
+         all_received_ != image_received_right or
+         all_received_ != info_received_right ) {
       int threshold = 3 * all_received_;
       if ( debug_ or 
            ( image_received_left_ > threshold or
