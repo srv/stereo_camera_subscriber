@@ -77,29 +77,34 @@ struct StereoCameraSubscriber::Impl {
   }
 
   void checkImagesSynchronized() {
-    int threshold = 3 * all_received_;
-    if ( debug_ or 
-         ( image_received_left_ > threshold or
-           info_received_left_ > threshold or
-           image_received_right_ > threshold or
-           info_received_right_ > threshold ) ) {
-      ROS_WARN( "[image_transport] Topics '%s', '%s', '%s' and '%s' "
-                "do not appear to be synchronized. "
-                "In the last 10s:\n"
-                "\tleft  Image messages received:      %d\n"
-                "\tleft  CameraInfo messages received: %d\n"
-                "\tright Image messages received:      %d\n"
-                "\tright CameraInfo messages received: %d\n"
-                "\tSynchronized couples:               %d",
-                image_sub_left_.getTopic().c_str(),
-                info_sub_left_.getTopic().c_str(),
-                image_sub_right_.getTopic().c_str(),
-                info_sub_right_.getTopic().c_str(),
-                image_received_left_,
-                info_received_left_,
-                image_received_right_,
-                info_received_right_,
-                all_received_ );
+    if ( all_received != image_recieved_left or
+         all_received != info_recieved_left or
+         all_received != image_recieved_right or
+         all_received != info_recieved_right ) {
+      int threshold = 3 * all_received_;
+      if ( debug_ or 
+           ( image_received_left_ > threshold or
+             info_received_left_ > threshold or
+             image_received_right_ > threshold or
+             info_received_right_ > threshold ) ) {
+        ROS_WARN( "[image_transport] Topics '%s', '%s', '%s' and '%s' "
+                  "do not appear to be synchronized. "
+                  "In the last 10s:\n"
+                  "\tleft  Image messages received:      %d\n"
+                  "\tleft  CameraInfo messages received: %d\n"
+                  "\tright Image messages received:      %d\n"
+                  "\tright CameraInfo messages received: %d\n"
+                 "\tSynchronized couples:               %d",
+                 image_sub_left_.getTopic().c_str(),
+                 info_sub_left_.getTopic().c_str(),
+                 image_sub_right_.getTopic().c_str(),
+                 info_sub_right_.getTopic().c_str(),
+                 image_received_left_,
+                 info_received_left_,
+                 image_received_right_,
+                 info_received_right_,
+                 all_received_ );
+           }
     }
     image_received_left_ = 0;
     info_received_left_ = 0;
