@@ -28,21 +28,22 @@ void increment( int * value ) {
 }
   
 void report_image( const boost::shared_ptr<const sensor_msgs::Image>& image,
-                   const std::string & side ) {
-  char c[1000];
-  sprintf(c, " Image Seq: %6d, Stamp: %s, FrameID: %s", 
-          image->header.seq, image->header.stamp, image->header.frame_id);
-  std::cout << side << c << std::endl;
+                    const std::string & side ) {
+  char c[100];
+  sprintf(c, " Image Seq: %6d, ", image->header.seq);
+  std::cout << side << c 
+  << " Stamp:   " << image->header.stamp 
+  << " FrameID: " << image->header.frame_id << std::endl;
 }    
   
 void report_info( const boost::shared_ptr<const sensor_msgs::CameraInfo>& info,
-                  const std::string & side ) {
-  char c[1000];
-  sprintf(c, " Info  Seq: %6d, Stamp: %s, FrameID: %s", 
-          info->header.seq, info->header.stamp, info->header.frame_id);
+                    const std::string & side ) {
+    char c[100];
     sprintf(c, " Info  Seq: %6d, ", info->header.seq);
-  std::cout << side << c << std::endl;
-}    
+    std::cout << side << c 
+    << " Stamp:   " << info->header.stamp 
+    << " FrameID: " << info->header.frame_id << std::endl;
+  }    
 
 struct StereoCameraSubscriber::Impl {
 
