@@ -289,6 +289,7 @@ bool StereoCameraSubscriber::report( bool on ) {
 //      impl_->right_image_report_.disconnect();
 //      impl_->right_info_report_.disconnect();
     }
+    std::cout << "end changing reporting " << std::endl;
   }
   return ( impl_->reporting_ = on );
 }
