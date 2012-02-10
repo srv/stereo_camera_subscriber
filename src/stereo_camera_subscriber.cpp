@@ -114,8 +114,6 @@ struct StereoCameraSubscriber::Impl {
     image_received_right_ = 0;
     info_received_right_ = 0;
     all_received_ = 0;
-    message_filters::Connection left_image_report_, left_info_report_,
-                                right_image_report_, right_info_report_; 
   }
 
   image_transport::SubscriberFilter image_sub_left_;
@@ -145,6 +143,9 @@ struct StereoCameraSubscriber::Impl {
   int all_received_;
   bool debug_;
   bool reporting_;
+  message_filters::Connection left_image_report_, left_info_report_,
+  right_image_report_, right_info_report_; 
+
 };
 
 StereoCameraSubscriber::
