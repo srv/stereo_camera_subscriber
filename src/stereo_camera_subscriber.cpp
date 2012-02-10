@@ -271,23 +271,23 @@ bool StereoCameraSubscriber::report( bool on ) {
   if ( on != impl_->reporting_ ) {
     std::cout << "changing reporting " << std::endl;
     if ( on ) {
-      impl_->left_image_report_ = 
+//      impl_->left_image_report_ = 
       impl_->image_sub_left_.registerCallback( boost::bind( report_image, _1, 
                                                            "left " ) );
-      impl_->left_info_report_ = 
+//      impl_->left_info_report_ = 
       impl_->info_sub_left_.registerCallback( boost::bind( report_info, _1, 
                                                           "left " ) );
-      impl_->right_image_report_ = 
+//      impl_->right_image_report_ = 
       impl_->image_sub_right_.registerCallback( boost::bind( report_image, _1, 
                                                             "right" ) );
-      impl_->right_info_report_ = 
+//      impl_->right_info_report_ = 
       impl_->info_sub_right_.registerCallback( boost::bind( report_info, _1, 
                                                            "right" ) );
     } else {
-      impl_->left_image_report_.disconnect();
-      impl_->left_info_report_.disconnect();
-      impl_->right_image_report_.disconnect();
-      impl_->right_info_report_.disconnect();
+//      impl_->left_image_report_.disconnect();
+//      impl_->left_info_report_.disconnect();
+//      impl_->right_image_report_.disconnect();
+//      impl_->right_info_report_.disconnect();
     }
   }
   return ( impl_->reporting_ = on );
