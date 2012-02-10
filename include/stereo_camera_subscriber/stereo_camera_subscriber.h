@@ -123,6 +123,8 @@ public:
   std::string getRightTransport() const;
   
   bool debug( bool on );
+  
+  bool report( bool on );
 
   void shutdown();
 
