@@ -266,20 +266,21 @@ bool StereoCameraSubscriber::debug( bool on ) {
   
 bool StereoCameraSubscriber::report( bool on ) {
   if ( on == impl_->reporting_ ) return on;
+  uint64_t id = 1;
   if ( on ) {
     impl_->image_sub_left_.registerCallback( boost::bind( report_image, _1, 
-                                                          "left " ), 1 );
+                                                          "left " ), id );
     impl_->info_sub_left_.registerCallback( boost::bind( report_info, _1, 
-                                                         "left " ), 1 );
+                                                         "left " ), id );
     impl_->image_sub_right_.registerCallback( boost::bind( report_image, _1, 
-                                                           "right" ), 1 );
+                                                           "right" ), id );
     impl_->info_sub_right_.registerCallback( boost::bind( report_info, _1, 
-                                                          "right" ), 1 );
+                                                          "right" ), id );
   } else {
-    impl_->image_sub_left_.removeByID( 1 );
-    impl_->info_sub_left_.removeByID( 1 );
-    impl_->image_sub_right_.removeByID( 1 );
-    impl_->info_sub_right_.removeByID( 1 ); 
+    impl_->image_sub_left_.removeByID( id );
+    impl_->info_sub_left_.removeByID( id );
+    impl_->image_sub_right_.removeByID( id );
+    impl_->info_sub_right_.removeByID( id ); 
   }
   return ( impl->reporting_ = on );
 }
