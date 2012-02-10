@@ -269,6 +269,7 @@ bool StereoCameraSubscriber::debug( bool on ) {
   
 bool StereoCameraSubscriber::report( bool on ) {
   if ( on != impl_->reporting_ ) {
+    std::cout << "changing reporting " << std::endl;
     if ( on ) {
       impl_->left_image_report_ = 
       impl_->image_sub_left_.registerCallback( boost::bind( report_image, _1, 
