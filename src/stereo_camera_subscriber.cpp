@@ -283,10 +283,10 @@ bool StereoCameraSubscriber::report( bool on ) {
     impl_->info_sub_right_.registerCallback( boost::bind( report_info, _1, 
                                                           "right" ) );
   } else {
-    impl_->left_image_report_.unsubscribe();
-    impl_->left_info_report_.unsubscribe();
-    impl_->right_image_report_.unsubscribe();
-    impl_->right_info_report_.unsubscribe();
+    impl_->left_image_report_.disconnect();
+    impl_->left_info_report_.disconnect();
+    impl_->right_image_report_.disconnect();
+    impl_->right_info_report_.disconnect();
   }
   return ( impl->reporting_ = on );
 }
