@@ -114,6 +114,8 @@ struct StereoCameraSubscriber::Impl {
     image_received_right_ = 0;
     info_received_right_ = 0;
     all_received_ = 0;
+    message_filters::Connection left_image_report, left_info_report,
+                                right_image_report, right_info_report; 
   }
 
   image_transport::SubscriberFilter image_sub_left_;
@@ -266,21 +268,24 @@ bool StereoCameraSubscriber::debug( bool on ) {
   
 bool StereoCameraSubscriber::report( bool on ) {
   if ( on == impl_->reporting_ ) return on;
-  uint64_t id = 1;
   if ( on ) {
-    impl_->image_sub_left_.registerCallback( boost::bind( report_image, _1, 
-                                                          "left " ), id );
+    left_image_report = 
+      impl_->image_sub_left_.registerCallback( boost::bind( report_image, _1, 
+                                                          "left " ) );
+    left_info_report = 
     impl_->info_sub_left_.registerCallback( boost::bind( report_info, _1, 
-                                                         "left " ), id );
+                                                         "left " ) );
+    right_image_report = 
     impl_->image_sub_right_.registerCallback( boost::bind( report_image, _1, 
-                                                           "right" ), id );
+                                                           "right" ) );
+    right_info_report = 
     impl_->info_sub_right_.registerCallback( boost::bind( report_info, _1, 
-                                                          "right" ), id );
+                                                          "right" ) );
   } else {
-    impl_->image_sub_left_.removeByID( id );
-    impl_->info_sub_left_.removeByID( id );
-    impl_->image_sub_right_.removeByID( id );
-    impl_->info_sub_right_.removeByID( id ); 
+    left_image_report.unsubscribe();
+    left_info_report.unsubscribe();
+    right_image_report.unsubscribe();
+    right_info_report.unsubscribe();
   }
   return ( impl->reporting_ = on );
 }
