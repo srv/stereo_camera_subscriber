@@ -288,7 +288,7 @@ bool StereoCameraSubscriber::report( bool on ) {
     impl_->right_image_report_.disconnect();
     impl_->right_info_report_.disconnect();
   }
-  return ( impl->reporting_ = on );
+  return ( impl_->reporting_ = on );
 }
   
 } //namespace image_transport
