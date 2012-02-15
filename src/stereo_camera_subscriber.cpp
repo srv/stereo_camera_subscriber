@@ -272,28 +272,32 @@ bool StereoCameraSubscriber::report( bool on ) {
     std::cout << "changing reporting " << std::endl;
     if ( on ) {
 //      impl_->left_image_report_ = 
-      std::cout << "end changing reporting " << std::endl;
+      std::cout << "report register 1 " << std::endl;
       impl_->image_sub_left_.registerCallback( boost::bind( report_image, _1, 
                                                            "left " ) );
-      std::cout << "end changing reporting " << std::endl;
+      std::cout << "report register 2 " << std::endl;
 //      impl_->left_info_report_ = 
       impl_->info_sub_left_.registerCallback( boost::bind( report_info, _1, 
                                                           "left " ) );
-      std::cout << "end changing reporting " << std::endl;
+      std::cout << "report register 3 " << std::endl;
 //      impl_->right_image_report_ = 
       impl_->image_sub_right_.registerCallback( boost::bind( report_image, _1, 
                                                             "right" ) );
-      std::cout << "end changing reporting " << std::endl;
+      std::cout << "report register 4 " << std::endl;
 //      impl_->right_info_report_ = 
       impl_->info_sub_right_.registerCallback( boost::bind( report_info, _1, 
                                                            "right" ) );
     } else {
-//      impl_->left_image_report_.disconnect();
-//      impl_->left_info_report_.disconnect();
-//      impl_->right_image_report_.disconnect();
-//      impl_->right_info_report_.disconnect();
+      std::cout << "report disconnect 1 " << std::endl;
+      impl_->left_image_report_.disconnect();
+      std::cout << "report disconnect 2 " << std::endl;
+      impl_->left_info_report_.disconnect();
+      std::cout << "report disconnect 3 " << std::endl;
+      impl_->right_image_report_.disconnect();
+      std::cout << "report disconnect 4 " << std::endl;
+      impl_->right_info_report_.disconnect();
     }
-    std::cout << "end changing reporting " << std::endl;
+    std::cout << "report register done " << std::endl;
   }
   return ( impl_->reporting_ = on );
 }
