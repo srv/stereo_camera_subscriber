@@ -278,7 +278,7 @@ bool StereoCameraSubscriber::report( bool on ) {
       
       std::cout << "report register 3 " << std::endl;
       //      impl_->right_image_report_ = 
-      impl_->image_sub_left_.registerCallback( boost::bind( report_image, _1, 
+      impl_->image_sub_right_.registerCallback( boost::bind( report_image, _1, 
                                                            "right " ) );
 //      impl_->image_sub_right_.registerCallback( boost::bind( report_image, _1, 
 //                                                            "right" ) );
