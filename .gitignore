@@ -29,3 +29,4 @@ cmake_install.cmake
 
 tmp
 
+.DS_Store
