@@ -178,7 +178,7 @@ StereoCameraSubscriber( image_transport::ImageTransport & image_it,
                                    queue_size,
                                    transport_hints.getRosHints() );
   impl_->image_sub_right_.subscribe( image_it,
-                                     image_topic_left,
+                                     image_topic_right,
                                      queue_size,
                                      transport_hints );
   impl_->info_sub_right_.subscribe( info_nh,
