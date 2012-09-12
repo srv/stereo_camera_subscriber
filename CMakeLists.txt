@@ -16,3 +16,5 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 file(GLOB source_files ${PROJECT_SOURCE_DIR}/src/*.cpp)
 rosbuild_add_library( ${PROJECT_NAME} ${source_files} ) 
+
+rosbuild_link_boost(${PROJECT_NAME} signals system )
