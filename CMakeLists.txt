@@ -1,20 +1,16 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+cmake_minimum_required(VERSION 2.8.3)
+project(stereo_camera_subscriber)
+find_package(catkin REQUIRED COMPONENTS 
+	roscpp
+	image_geometry
+	image_transport
+	sensor_msgs)
 
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-#set(ROS_BUILD_TYPE RelWithDebInfo)
+find_package(Boost REQUIRED COMPONENTS signals system)
 
-rosbuild_init()
+catkin_package()
 
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+include_directories(${Boost_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS} include)
 
-file(GLOB source_files ${PROJECT_SOURCE_DIR}/src/*.cpp)
-rosbuild_add_library( ${PROJECT_NAME} ${source_files} ) 
-
-rosbuild_link_boost(${PROJECT_NAME} signals system )
+add_library(${PROJECT_NAME} src/stereo_camera_subscriber.cpp)
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${catkin_LIBRARIES})

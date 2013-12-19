@@ -1,0 +1,22 @@
+<package>
+  <name>stereo_camera_subscriber</name>
+  <version>0.0.1</version>
+  <description>Visual altimeter for stereo cameras</description>
+  <author>Volker Nannen</author>
+  <maintainer email="pl.negre@uib.cat">Pep Lluis Negre</maintainer>
+  <license>BSD</license>
+  <url type="website">https://github.com/srv/stereo_camera_subscriber</url>
+  <url type="bugtracker">https://github.com/srv/stereo_camera_subscriber/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>image_geometry</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>image_geometry</run_depend>
+  <run_depend>image_transport</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+</package>
